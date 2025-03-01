@@ -7,36 +7,35 @@ gcc -o main main.c `pkg-config --cflags --libs gtk+-3.0`
 #include <pthread.h>
 #include <unistd.h>
 #include <time.h>
+#include <windows.h>
 int num = 0;
-int samyu = 0;
-int width = 0;
-int height = 0;
+
 void open_url_in_browser(const char *url) {
-    gchar *command = g_strdup_printf("xdg-open %s", url);
-    GError *error = NULL;
-
-    if (!g_spawn_command_line_async(command, &error)) {
-        g_printerr("Failed to open URL: %s\n", error->message);
-        g_error_free(error);
-    }
-
-    g_free(command);
-}
-
-void open_site_clicked(GtkWidget *widget, gpointer data) {
-    const char *url = "https://umaidango.github.io/me/";
-    open_url_in_browser(url);
-}
-
+  #ifdef _WIN32
+      ShellExecute(NULL, "open", url, NULL, NULL, SW_SHOWNORMAL);
+  #else
+      pid_t pid = fork();
+      if (pid == 0) {
+          execlp("xdg-open", "xdg-open", url, NULL);
+          _exit(1);
+      } else if (pid > 0) {
+          wait(NULL);
+      } else {
+          g_printerr("Failed to fork process.\n");
+      }
+  #endif
+  }
+  
+  void open_site_clicked(GtkWidget *widget, gpointer data) {
+      const char *url = "https://umaidango.github.io/me/";
+      open_url_in_browser(url);
+  }
 
 void change_label(GtkWidget *time_label) {
 
-    char str[100];
+    char str[1000];
 
     snprintf(str, sizeof(str), "%d", num);
-
-    printf("文字列: %s\n", str);
-
     gtk_label_set_text(GTK_LABEL(time_label), str); // time_label を GtkLabel * にキャスト
 
 }
@@ -113,6 +112,8 @@ int main(int argc, char *argv[]) {
         g_object_unref(original_pixbuf);
     } else {
         g_print("Failed to load image: image.png\n");
+        g_print("Current directory: %s\n", g_get_current_dir()); // 現在のディレクトリを出力
+    
     }
 
     GtkCssProvider *provider = gtk_css_provider_new();
