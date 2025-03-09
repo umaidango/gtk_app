@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/ku-da/Documents/gtk_app/dangoapp",
-      "program": "c:/Users/ku-da/Documents/gtk_app/dangoapp/build/Debug/outDebug",
+      "cwd": "c:/Users/ku-da/Documents/gtk_app",
+      "program": "c:/Users/ku-da/Documents/gtk_app/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
