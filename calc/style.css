@@ -1,0 +1,32 @@
+window{
+  background: #EEF4F9;
+}
+
+
+#calc_textbox {
+  padding: 10px;
+  margin: 15px;
+  margin-top: 20px;
+  font-size: 22px;
+  border: 1.2px #eee solid;
+  background: #fff;
+  border-radius: 15px;  
+}
+
+.button_style1 {
+  padding: 15px;
+  margin: 5px;
+  border: 1px #eee solid;
+  border-radius: 15px;
+  background: #fff;
+  outline: none;
+  font-size: 18px;
+}
+
+.button_style1:hover {
+  background: #ececec;
+}
+
+.button_style1:active {
+  background: #cacaca;
+}
