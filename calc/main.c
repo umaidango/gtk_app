@@ -8,7 +8,6 @@ gcc -o main main.c `pkg-config --cflags --libs gtk+-3.0`
 #include <pthread.h>
 #include <unistd.h>
 #include <time.h>
-#include <windows.h>
 #include <string.h>
 char text[100];
 
